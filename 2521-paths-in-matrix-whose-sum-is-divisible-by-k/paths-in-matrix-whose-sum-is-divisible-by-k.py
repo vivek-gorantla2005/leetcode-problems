@@ -12,8 +12,8 @@ class Solution:
             if dp[i][j][remain] > -1 :
                 return dp[i][j][remain]
             dp[i][j][remain] = (
-                DFS(i+1,j,((remain + grid[i][j]) % k))%mod+
-                DFS(i,j+1,((remain + grid[i][j]) % k)) %mod
-            )%mod
+                DFS(i+1,j,((remain + grid[i][j]) % k))+
+                DFS(i,j+1,((remain + grid[i][j]) % k))
+            )
             return dp[i][j][remain]
-        return DFS(0,0,0)
+        return DFS(0,0,0) % mod

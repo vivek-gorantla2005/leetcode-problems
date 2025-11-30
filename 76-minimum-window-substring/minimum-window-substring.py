@@ -4,10 +4,9 @@ class Solution:
     def minWindow(self, s: str, t: str) -> str:
         c = Counter(t)
         m = Counter()
-
         l = 0
         r = 0
-        curr = 0       # window size
+        curr = 0     
         minLen = float('inf')
         st = 0
         end = 0
@@ -30,7 +29,7 @@ class Solution:
                 end = r
 
             # shrink window from left
-            while valid() and l <= r:
+            while valid() and l < len(s):
                 if s[l] in c:
                     m[s[l]] -= 1
                 l += 1

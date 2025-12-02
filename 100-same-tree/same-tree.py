@@ -1,13 +1,13 @@
-# Recursive (clean)
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        def dfs(n1, n2):
-            if not n1 and not n2:
+        def dfs(node1,node2):
+            if not node1 and not node2:
                 return True
-            if not n1 or not n2:
+            if not node1 or not node2:
                 return False
-            if n1.val != n2.val:
+            if node1.val != node2.val:
                 return False
-            return dfs(n1.left, n2.left) and dfs(n1.right, n2.right)
-
-        return dfs(p, q)
+            
+            return dfs(node1.left,node2.left) and dfs(node1.right,node2.right)
+        return dfs(p,q)
+        

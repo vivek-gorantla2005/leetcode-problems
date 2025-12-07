@@ -11,7 +11,7 @@ class Solution:
         ans = []
 
         def dfs(idx, curr):
-            if idx == len(digits):
+            if len(curr) == len(digits):
                 ans.append(curr)
                 return
 

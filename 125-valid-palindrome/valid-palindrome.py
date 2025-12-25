@@ -1,13 +1,16 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        g = [i for i in s if i.isalnum()]
-        g = "".join(g).lower()
-        st = 0
-        end = len(g)-1
-        while st < end:
-            if g[st] != g[end]:
-                return False
+        ms = ""
+        for i in s:
+            if i.isspace() or not i.isalnum():
+                continue
+            if 'A' <= i <= 'Z':
+                ms+=chr(ord(i) + 32)
             else:
-                st+=1
-                end-=1
-        return True
+                ms+=i
+        r = ms[::-1]
+        if ms == r:
+            return True
+        return False
+        
+        

@@ -1,47 +1,30 @@
-from collections import Counter
-
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         c = Counter(t)
         m = Counter()
-        l = 0
-        r = 0
-        curr = 0     
-        minLen = float('inf')
         st = 0
         end = 0
+        l = 0
+        r = 0
+        mini = float('inf')
+
+        def valid():
+            for ch in c:
+                if m[ch] < c[ch]:
+                    return False
+            return True
 
         while r < len(s):
-            curr += 1
-            if s[r] in c:
-                m[s[r]] += 1
-
-            # check validity: all characters of t must have required counts
-            def valid():
-                for ch in c:
-                    if m[ch] < c[ch]:
-                        return False
-                return True
-
-            if valid() and curr < minLen:
-                minLen = curr
-                st = l
-                end = r
-
-            # shrink window from left
-            while valid() and l < len(s):
-                if s[l] in c:
-                    m[s[l]] -= 1
-                l += 1
-                curr -= 1   
-
-                if valid() and curr < minLen:
-                    minLen = curr
+            m[s[r]] += 1
+            while valid() and l <= r:
+                if r - l + 1 < mini:
+                    mini = r - l + 1
                     st = l
                     end = r
 
+                m[s[l]] -= 1
+                l += 1
+
             r += 1
 
-        if minLen == float('inf'):
-            return ""
-        return s[st:end+1]
+        return "" if mini == float('inf') else s[st:end + 1]

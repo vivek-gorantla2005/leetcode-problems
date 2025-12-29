@@ -1,11 +1,23 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        c = Counter(s1)
-        for i in range(len(s2) - len(s1) + 1):
-            s = s2[i:i+len(s1)]
-            c2 = Counter(s)
-            if c == c2:
-                return True
-        return False
+        m1 = Counter(s1)
+        m2 = Counter()
+        l = 0
+        r = 0
+        k = len(s1)
 
-        
+        while r < len(s2):
+            m2[s2[r]] += 1
+
+            if r - l + 1 > k:
+                m2[s2[l]] -= 1
+                if m2[s2[l]] == 0:
+                    del m2[s2[l]]
+                l += 1
+
+            if m1 == m2:
+                return True
+
+            r += 1
+
+        return False

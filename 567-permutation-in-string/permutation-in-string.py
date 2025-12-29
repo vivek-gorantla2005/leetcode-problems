@@ -9,7 +9,7 @@ class Solution:
         while r < len(s2):
             m2[s2[r]] += 1
 
-            if r - l + 1 > k:
+            while r - l + 1 > k:
                 m2[s2[l]] -= 1
                 if m2[s2[l]] == 0:
                     del m2[s2[l]]

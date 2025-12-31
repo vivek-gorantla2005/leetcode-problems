@@ -3,21 +3,22 @@ class Solution:
         if not root:
             return []
         
-        q = deque()
-        q.append(root)
         ans = []
+        q = deque([root])
 
-        while len(q) > 0:
-            curr = []
-            for i in range(len(q)):
-                f = q.popleft()
-                curr.append(f.val)
+        while q:
+            level = []
+            size = len(q)
 
-                if f.left:
-                    q.append(f.left)
-                if f.right:
-                    q.append(f.right)
+            for _ in range(size):
+                node = q.popleft()
+                level.append(node.val)
 
-            ans.append(curr)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+
+            ans.append(level)
 
         return ans

@@ -7,13 +7,11 @@ class Solution:
         mp = {}
         node = dummy
 
-        # First pass: map prefix sum to LAST node
         while node:
             prefix += node.val
             mp[prefix] = node
             node = node.next
 
-        # Second pass: skip zero-sum ranges
         prefix = 0
         node = dummy
         while node:

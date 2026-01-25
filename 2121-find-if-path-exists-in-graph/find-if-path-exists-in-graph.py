@@ -5,17 +5,20 @@ class Solution:
             adj[u].append(v)
             adj[v].append(u)
 
-        q = deque()
-        q.append(source)
-        vis = {(source)}
-        while q:
-            node = q.popleft()
+        vis = set()
+        def dfs(node):
             if node == destination:
                 return True
-            for curr in adj[node]:
-                if curr not in vis:
-                    q.append(curr)
-                    vis.add(curr)
+            
+            vis.add(node)
+
+            for n in adj[node]:
+                if n not in vis:
+                    if dfs(n):
+                        return True
+            
+            return False
+
         
-        return False
+        return dfs(source)
         

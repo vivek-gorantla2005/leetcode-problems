@@ -1,6 +1,3 @@
-from collections import defaultdict, deque
-from typing import List
-
 class Solution:
     def minMoves(self, matrix: List[str]) -> int:
         n, m = len(matrix), len(matrix[0])
@@ -12,7 +9,7 @@ class Solution:
                     portals[matrix[i][j]].append((i, j))
 
         dq = deque()
-        dq.append((0, 0, 0))  # dist, row, col
+        dq.append((0, 0, 0))  
 
         visited = [[False]*m for _ in range(n)]
         used_portals = set()

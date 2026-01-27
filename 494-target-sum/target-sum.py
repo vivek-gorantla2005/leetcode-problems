@@ -10,12 +10,24 @@ class Solution:
             sub = backtrack(idx+1,total-nums[idx])
             return add+sub
 
-        dp = [defaultdict(int) for _ in range(len(nums)+1)]
-        dp[0][0] = 1 #(0 elements,0 sum) -> 1 way
+        # dp = [defaultdict(int) for _ in range(len(nums)+1)]
+        # dp[0][0] = 1 #(0 elements,0 sum) -> 1 way
+
+        # for i in range(len(nums)):
+        #     for cur_sum,count in dp[i].items():
+        #         dp[i+1][cur_sum + nums[i]] += count
+        #         dp[i+1][cur_sum-nums[i]]+=count
+        # return dp[len(nums)][target]
+        
+        dp = defaultdict(int) 
+        dp[0] = 1 #(0 elements,0 sum) -> 1 way
 
         for i in range(len(nums)):
-            for cur_sum,count in dp[i].items():
-                dp[i+1][cur_sum + nums[i]] += count
-                dp[i+1][cur_sum-nums[i]]+=count
+            nextdp = defaultdict(int)
+            for cur_sum,count in dp.items():
+                nextdp[cur_sum + nums[i]] += count
+                nextdp[cur_sum-nums[i]]+=count
+            dp = nextdp
         
-        return dp[len(nums)][target]
+        return dp[target]
+

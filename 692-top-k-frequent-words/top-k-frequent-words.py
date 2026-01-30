@@ -9,8 +9,4 @@ class Solution:
         for key,val in m.items():
             heapq.heappush(minheap,(-val,key))
         
-        ans = []
-        for _ in range(k):
-            ans.append(heapq.heappop(minheap)[1])
-
-        return ans
+        return [heapq.heappop(minheap)[1] for _ in range(k)]

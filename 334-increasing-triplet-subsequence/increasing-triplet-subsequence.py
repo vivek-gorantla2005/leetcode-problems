@@ -5,7 +5,7 @@ class Solution:
         for i in nums:
             if i <= ele1:
                 ele1 = i
-            elif i <= ele2:
+            elif i <= ele2 and i > ele1 :
                 ele2 = i
             else:
                 return True

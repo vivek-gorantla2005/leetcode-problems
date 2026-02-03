@@ -1,5 +1,6 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
+# ------------------------------------------>memoization
         # dp = {}
         # def dfs(idx):
         #     if idx >= len(nums):
@@ -19,18 +20,36 @@ class Solution:
         
         # return dfs(0)
 
+# ------------------------------------------>bottom up approach
+
+        # if len(nums) <= 2 :
+        #     return max(nums)
+
+        # dp = [0] * len(nums)
+        # dp[0] = nums[0]
+        # dp[1] = max(nums[0],nums[1])
+
+        # for i in range(2,len(nums)):
+        #     pick = nums[i]+dp[i-2]
+        #     notpick = dp[i-1]
+        #     dp[i] = max(pick,notpick)
+        
+        # return dp[len(nums)-1]
+
+# ===========================================================>space optimized
+    
         if len(nums) <= 2 :
             return max(nums)
 
-        dp = [0] * len(nums)
-        dp[0] = nums[0]
-        dp[1] = max(nums[0],nums[1])
+        prev1 = max(nums[0],nums[1])
+        prev2 = nums[0]
+
         for i in range(2,len(nums)):
-            pick = nums[i]+dp[i-2]
-            notpick = dp[i-1]
-            dp[i] = max(pick,notpick)
+            pick = nums[i]+prev2
+            notpick = prev1
+            curr = max(pick,notpick)
+            prev2 = prev1
+            prev1 = curr
         
-        return dp[len(nums)-1]
-
-
+        return prev1
         

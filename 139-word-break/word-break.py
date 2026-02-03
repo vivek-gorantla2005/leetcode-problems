@@ -1,28 +1,13 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        n = len(s)
-        dp = [-1] * (n + 1)  
+        dp = [False] * (len(s) + 1)
+        dp[len(s)] = True
 
-        def dfs(i):
-            if i == n:
-                return True
+        for i in range(len(s) - 1, -1, -1):
+            for w in wordDict:
+                if i + len(w) <= len(s) and s[i:i+len(w)] == w:
+                    if dp[i + len(w)]:
+                        dp[i] = True
+                        break 
 
-            if dp[i] != -1:
-                return dp[i] == 1
-
-            for word in wordDict:
-                currsize = len(word)
-
-                # check bounds
-                if i + currsize > n:
-                    continue
-
-                # correct substring check
-                if s[i : i + currsize] == word and dfs(i + currsize):
-                    dp[i] = 1
-                    return True
-
-            dp[i] = 0
-            return False
-
-        return dfs(0)
+        return dp[0]

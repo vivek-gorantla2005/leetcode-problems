@@ -1,24 +1,38 @@
 class Solution:
     def maximalSquare(self, matrix: List[List[str]]) -> int:
-        dp = {}
-        def helper(i,j):
-            if  i >= len(matrix) or j >= len(matrix[0]):
-                return 0
+        # dp = {}
+        # def helper(i,j):
+        #     if  i >= len(matrix) or j >= len(matrix[0]):
+        #         return 0
 
-            if (i,j) in dp:
-                return dp[(i,j)]
+        #     if (i,j) in dp:
+        #         return dp[(i,j)]
             
-            down = helper(i+1,j)
-            right = helper(i,j+1)
-            diag = helper(i+1,j+1)
+        #     down = helper(i+1,j)
+        #     right = helper(i,j+1)
+        #     diag = helper(i+1,j+1)
 
-            if matrix[i][j] == "1":
-                dp[(i,j)] = 1 + min(right,down,diag)
-            else:
-                dp[(i,j)] = 0
+        #     if matrix[i][j] == "1":
+        #         dp[(i,j)] = 1 + min(right,down,diag)
+        #     else:
+        #         dp[(i,j)] = 0
             
-            return dp[(i,j)]
+        #     return dp[(i,j)]
         
-        helper(0,0)
-        return max(dp.values()) ** 2
-            
+        # helper(0,0)
+        # return max(dp.values()) ** 2
+        
+        ROWS = len(matrix)
+        COLS = len(matrix[0])
+        dp = [[0]*(COLS+1) for i in range(ROWS+1)]
+
+        maxSide = 0
+
+        for i in range(ROWS-1,-1,-1):
+            for j in range(COLS-1,-1,-1):
+                if matrix[i][j] == "1":
+                    dp[i][j] = 1 + min(dp[i+1][j],dp[i][j+1],dp[i+1][j+1])
+                    maxSide = max(maxSide,dp[i][j])
+                
+        return maxSide * maxSide
+                

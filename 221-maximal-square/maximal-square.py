@@ -4,13 +4,18 @@ class Solution:
         def helper(i,j):
             if  i >= len(matrix) or j >= len(matrix[0]):
                 return 0
-            if (i,j) not in dp:
-                down = helper(i+1,j)
-                right = helper(i,j+1)
-                diag = helper(i+1,j+1)
+
+            if (i,j) in dp:
+                return dp[(i,j)]
+            
+            down = helper(i+1,j)
+            right = helper(i,j+1)
+            diag = helper(i+1,j+1)
+
+            if matrix[i][j] == "1":
+                dp[(i,j)] = 1 + min(right,down,diag)
+            else:
                 dp[(i,j)] = 0
-                if matrix[i][j] == "1":
-                    dp[(i,j)] = 1 + min(right,down,diag)
             
             return dp[(i,j)]
         

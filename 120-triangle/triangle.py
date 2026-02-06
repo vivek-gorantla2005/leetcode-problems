@@ -19,19 +19,19 @@ class Solution:
 
 
     # =======================================================>tabulation
-        n = len(triangle)
-        dp = [[0] * n for _ in range(n)]
+        # n = len(triangle)
+        # dp = [[0] * n for _ in range(n)]
 
-        dp[n-1] = triangle[-1][:]
+        # dp[n-1] = triangle[-1][:]
 
-        for i in range(n-2,-1,-1):
-            for j in range(i+1):
-                dp[i][j] = triangle[i][j] + min(
-                    dp[i+1][j],
-                    dp[i+1][j+1]
-                )
+        # for i in range(n-2,-1,-1):
+        #     for j in range(i+1):
+        #         dp[i][j] = triangle[i][j] + min(
+        #             dp[i+1][j],
+        #             dp[i+1][j+1]
+        #         )
 
-        return dp[0][0]
+        # return dp[0][0]
 
     # ========================================================>space optimization
         n = len(triangle)
@@ -39,11 +39,6 @@ class Solution:
 
         for i in range(n-2,-1,-1):
             for j in range(i+1):
-                temp = triangle[i][j] + min(
-                    dp[j],
-                    dp[j+1]
-                )
-            dp = temp
-
+                dp[j] = triangle[i][j] + min(dp[j],dp[j+1])
         return dp[0]
         

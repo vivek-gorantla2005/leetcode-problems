@@ -1,5 +1,6 @@
 class Solution:
     def maximalSquare(self, matrix: List[List[str]]) -> int:
+# ---------------------------------------------------------------> memoization
         # dp = {}
         # def helper(i,j):
         #     if  i >= len(matrix) or j >= len(matrix[0]):
@@ -21,6 +22,8 @@ class Solution:
         
         # helper(0,0)
         # return max(dp.values()) ** 2
+
+# -----------------------------------------------------------------> tabulation
         
         ROWS = len(matrix)
         COLS = len(matrix[0])
@@ -35,4 +38,5 @@ class Solution:
                     maxSide = max(maxSide,dp[i][j])
                 
         return maxSide * maxSide
-                
+
+

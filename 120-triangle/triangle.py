@@ -33,4 +33,17 @@ class Solution:
 
         return dp[0][0]
 
+    # ========================================================>space optimization
+        n = len(triangle)
+        dp = triangle[-1][:]
+
+        for i in range(n-2,-1,-1):
+            for j in range(i+1):
+                temp = triangle[i][j] + min(
+                    dp[j],
+                    dp[j+1]
+                )
+            dp = temp
+
+        return dp[0]
         

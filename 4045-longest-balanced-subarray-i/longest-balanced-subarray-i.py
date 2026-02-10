@@ -1,19 +1,19 @@
 class Solution:
     def longestBalanced(self, nums: List[int]) -> int:
-        n = len(nums)
-        ans = 0
-        
-        for i in range(n):
-            even_set = set()
-            odd_set = set()
-            
-            for j in range(i, n):
-                if nums[j] % 2 == 0:
-                    even_set.add(nums[j])
+        maxi = 0
+        for i in range(len(nums)):
+            s1 = set()
+            s2 = set()
+            for j in range(i,len(nums)):
+                if nums[j] % 2 == 0 :
+                    s1.add(nums[j])
                 else:
-                    odd_set.add(nums[j])
-                
-                if len(even_set) == len(odd_set):
-                    ans = max(ans, j - i + 1)
+                    s2.add(nums[j])
+            
+                if len(s1) == len(s2):
+                    maxi = max(maxi,j-i+1)
+            
+        return maxi
+            
+            
         
-        return ans

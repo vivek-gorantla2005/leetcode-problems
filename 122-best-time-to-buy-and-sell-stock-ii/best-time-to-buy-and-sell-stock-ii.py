@@ -4,21 +4,24 @@ class Solution:
     def maxProfit(self, prices: List[int]) -> int:
 
         n = len(prices)
-        dp = [[0] * 2 for _ in range(n+1)]
+        ahead = [0] * 2
 
         for idx in range(n-1, -1, -1):
+            curr = [0] * 2
             for buy in range(2):
                 if buy:
                     profit = max(
-                        -prices[idx] + dp[idx+1][0],  # FIXED
-                        dp[idx+1][1]
+                        -prices[idx] + ahead[0],  
+                        ahead[1]
                     )
                 else:
                     profit = max(
-                        prices[idx] + dp[idx+1][1],   # FIXED
-                        dp[idx+1][0]
+                        prices[idx] + ahead[1],
+                        ahead[0]
                     )
 
-                dp[idx][buy] = profit
+                curr[buy] = profit
+            
+            ahead = curr
 
-        return dp[0][1]
+        return ahead[1]

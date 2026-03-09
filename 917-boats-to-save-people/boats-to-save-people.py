@@ -12,9 +12,7 @@ class Solution:
         while st <= end:
             if people[st] + people[end] <= limit:
                 st+=1
-                end-=1
-            elif people[end] <= limit:
-                end-=1
+            end-=1
             boats+=1
         return boats
             

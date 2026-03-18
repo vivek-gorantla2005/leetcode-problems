@@ -11,11 +11,9 @@ class Solution:
             return root.val + left + right
         
         tot = sumTree(root)
-        ans = 0
         maxi = float('-inf')
         for i in range(len(arr)-1):
-            num2 = tot - arr[i]
-            maxi = max(maxi,arr[i] * num2)
+            maxi = max(maxi,arr[i] * (tot - arr[i]))
         return maxi%MOD
 
 

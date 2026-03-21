@@ -3,8 +3,7 @@ class Solution:
         maxheap = []
         m = Counter(nums)
         for key,val in m.items():
-            maxheap.append([-val,key])
-        heapq.heapify(maxheap)
+            heapq.heappush(maxheap,[-val,key])
         ans = []
         while maxheap and k > 0:
             val,key = heapq.heappop(maxheap)

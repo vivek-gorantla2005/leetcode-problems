@@ -1,16 +1,24 @@
 class Solution:
-    def permute(self, nums):
+    def permute(self, nums: List[int]) -> List[List[int]]:
         ans = []
-
-        def getpermute(nums, index):
-            if index == len(nums):
-                ans.append(nums[:]) 
+        used = set()
+        
+        def dfs(curr):
+            if len(curr) == len(nums):
+                ans.append(curr[:])  
                 return
-
-            for i in range(index, len(nums)):
-                nums[index], nums[i] = nums[i], nums[index] 
-                getpermute(nums, index + 1)
-                nums[index], nums[i] = nums[i], nums[index] 
-
-        getpermute(nums, 0)
+            
+            for x in nums:
+                if x in used:
+                    continue
+                
+                used.add(x)
+                curr.append(x)
+                
+                dfs(curr)
+                
+                curr.pop()       # correct backtrack
+                used.remove(x)
+        
+        dfs([])
         return ans

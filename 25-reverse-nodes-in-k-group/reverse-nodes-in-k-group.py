@@ -1,37 +1,43 @@
 class Solution:
-    def getknode(self, curr, k):
-        while curr and k > 1:
-            curr = curr.next
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]: 
+        def reverse(temp):
+            prev = None
+            while temp:
+                nextNode = temp.next
+                temp.next = prev
+                prev = temp
+                temp = nextNode
+            return prev
+        
+        def getKthNode(temp, k):
             k -= 1
-        return curr
-
-    def reverse(self, curr, k):
-        prev = None
-        temp = curr
-        while k > 0:
-            nxt = temp.next
-            temp.next = prev
-            prev = temp
-            temp = nxt
-            k -= 1
-        return prev, curr  # new head, new tail
-
-    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        dummy = ListNode(0, head)
-        prevGrp = dummy
-
-        while True:
-            temp = prevGrp.next
-            kNode = self.getknode(temp, k)
-            if kNode is None:
+            while temp and k > 0:
+                temp = temp.next
+                k -= 1
+            return temp
+        
+        temp = head
+        prevTail = None
+        
+        while temp:
+            kth = getKthNode(temp, k)
+            
+            if not kth:
+                if prevTail:
+                    prevTail.next = temp
                 break
-
-            nxt = kNode.next
-            newHead, newTail = self.reverse(temp, k)
-
-            prevGrp.next = newHead
-            newTail.next = nxt
-
-            prevGrp = newTail
-
-        return dummy.next
+            
+            nextGroup = kth.next
+            kth.next = None
+            
+            newHead = reverse(temp)
+            
+            if temp == head:
+                head = newHead
+            else:
+                prevTail.next = newHead
+            
+            prevTail = temp
+            temp = nextGroup
+        
+        return head

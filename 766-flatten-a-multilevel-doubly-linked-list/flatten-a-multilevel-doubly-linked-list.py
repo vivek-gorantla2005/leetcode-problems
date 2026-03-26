@@ -1,13 +1,16 @@
 class Solution:
     def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        ans = []
+        dummy = Node(0) 
+        self.temp = dummy
+
         def dfs(node):
             if not node:
                 return
             
-            if node:
-                ans.append(node)
-
+            newNode = Node(node.val)
+            self.temp.next = newNode
+            newNode.prev = self.temp
+            self.temp = newNode
 
             if node.child:
                 dfs(node.child)
@@ -16,15 +19,8 @@ class Solution:
         
         dfs(head)
 
-        for i in range(len(ans)):
-            if i > 0:
-                ans[i].prev = ans[i-1]
-                ans[i-1].next = ans[i]
-            ans[i].child = None 
+        res = dummy.next
+        if res:
+            res.prev = None  
         
-        return ans[0] if ans else None
-
-        
-        
-            
-        
+        return res

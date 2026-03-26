@@ -1,18 +1,17 @@
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        oldToCopy = {None : None}
+        copyMap = {None:None}
         curr = head
         while curr:
-            copy = Node(curr.val)
-            oldToCopy[curr] = copy
+            copyMap[curr] = Node(curr.val)
             curr = curr.next
         
         curr = head
         while curr:
-            copy = oldToCopy[curr]
-            copy.next = oldToCopy[curr.next]
-            copy.random = oldToCopy[curr.random]
+            copynode = copyMap[curr]
+            copynode.next = copyMap[curr.next]
+            copynode.random = copyMap[curr.random]
             curr = curr.next
         
-        return oldToCopy[head]
+        return copyMap[head]
         

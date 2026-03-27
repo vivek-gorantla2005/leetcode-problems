@@ -2,6 +2,7 @@ class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         self.prev = None
         self.flag = True
+
         def dfs(node):
             if not node:
                 return
@@ -19,6 +20,4 @@ class Solution:
         dfs(root)
         
         return self.flag
-
-
         

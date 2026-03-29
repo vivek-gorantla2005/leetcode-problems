@@ -4,28 +4,27 @@ class Solution:
         indegree = [0] * numCourses
 
         for a, b in prereq:
-            adj[b].append(a)
+            adj[b].append(a)   # b → a
             indegree[a] += 1
 
         q = deque()
 
+        # push nodes with indegree 0
         for i in range(numCourses):
             if indegree[i] == 0:
                 q.append(i)
 
-        completed = 0
+        count = 0
+
         ans = []
+
         while q:
-            course = q.popleft()
-            ans.append(course)
-            completed += 1
+            node = q.popleft()
+            ans.append(node)
+            for nei in adj[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
 
-            for next_course in adj[course]:
-                indegree[next_course] -= 1
-                if indegree[next_course] == 0:
-                    q.append(next_course)
-
-        if len(ans) == numCourses:
-            return ans
-        else:
-            return []
+        return ans if len(ans) == numCourses else []
+        

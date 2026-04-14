@@ -1,19 +1,21 @@
-from functools import lru_cache
-
 class Solution:
     def maxAlternatingSum(self, nums: List[int]) -> int:
-        
-        @lru_cache(None)
-        def dp(idx, even):
-            if idx == len(nums):
+        dp = {}
+        def dfs(i,flag):
+            if i == len(nums):
                 return 0
             
-            notPick = dp(idx+1,even)
+            if (i,flag) in dp:
+                return dp[(i,flag)]
 
-            total = nums[idx] if even else (-1 * nums[idx])
+            notPick = dfs(i+1,flag)
+            val = nums[i]
+            if flag == False:
+                val = -val
+            pick = val + dfs(i+1,not flag)
 
-            pick = total + dp(idx+1,not even)
+            dp[(i,flag)] = max(pick,notPick)
 
-            return max(pick, notPick)
+            return dp[(i,flag)]
         
-        return dp(0, True)
+        return dfs(0,True)
